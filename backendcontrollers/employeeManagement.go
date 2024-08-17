@@ -51,7 +51,12 @@ func RecentlyAddedEmployee(c *gin.Context) {
 
 func DeleteEmployee(c *gin.Context) {
 	id := c.Param("id")
-	connections.DB.Delete(&models.Employee{}, id)
+	result := connections.DB.Delete(&models.Employee{}, id)
+	if result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error})
+	} else {
+		c.JSON(http.StatusOK, gin.H{"data": "Employee Deleted"})
+	}
 }
 
 func BatchDeleteEmployee(c *gin.Context) {
@@ -59,7 +64,13 @@ func BatchDeleteEmployee(c *gin.Context) {
 
 	var users []models.Employee
 	connections.DB.Where("id IN (?)", ids).Find(&users)
-	connections.DB.Delete(&users)
+	result := connections.DB.Delete(&users)
+
+	if result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error})
+	} else {
+		c.JSON(http.StatusOK, gin.H{"data": "Employee Deleted"})
+	}
 }
 
 func RecentlyDeletedEmployee(c *gin.Context) {
@@ -71,12 +82,22 @@ func RecentlyDeletedEmployee(c *gin.Context) {
 
 func RestoreEmployee(c *gin.Context) {
 	id := c.Param("id")
-	connections.DB.Unscoped().Model(&models.Employee{}).Where("id = ?", id).Update("deleted_at", nil)
+	result := connections.DB.Unscoped().Model(&models.Employee{}).Where("id = ?", id).Update("deleted_at", nil)
+	if result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error})
+	} else {
+		c.JSON(http.StatusOK, gin.H{"data": "Employee Restored"})
+	}
 }
 
 func PermanaentlyDeleteEmployee(c *gin.Context) {
 	id := c.Param("id")
-	connections.DB.Unscoped().Delete(&models.Employee{}, id)
+	result := connections.DB.Unscoped().Delete(&models.Employee{}, id)
+	if result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error})
+	} else {
+		c.JSON(http.StatusOK, gin.H{"data": "Employee Deleted Permanatly"})
+	}
 }
 
 func UpdateEmployee(c *gin.Context) {
@@ -97,7 +118,13 @@ func UpdateEmployee(c *gin.Context) {
 
 	connections.DB.First(&employee, id)
 
-	connections.DB.Model(&employee).Updates(models.Employee{Name: employeeName, Salary: employeeSalary,
+	result := connections.DB.Model(&employee).Updates(models.Employee{Name: employeeName, Salary: employeeSalary,
 		Shift: employeeShift, Desgination: employeeDesgination,
 		Gender: employeeGender})
+
+	if result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error})
+	} else {
+		c.JSON(http.StatusOK, gin.H{"data": employee})
+	}
 }
