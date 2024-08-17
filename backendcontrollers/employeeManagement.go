@@ -41,3 +41,63 @@ func CreateEmployee(c *gin.Context) {
 		}
 	}
 }
+
+func RecentlyAddedEmployee(c *gin.Context) {
+	var employees []models.Employee
+	connections.DB.Unscoped().Order("id").Find(&employees)
+
+	c.JSON(http.StatusOK, gin.H{"data": employees})
+}
+
+func DeleteEmployee(c *gin.Context) {
+	id := c.Param("id")
+	connections.DB.Delete(&models.Employee{}, id)
+}
+
+func BatchDeleteEmployee(c *gin.Context) {
+	ids := c.PostFormArray("ids")
+
+	var users []models.Employee
+	connections.DB.Where("id IN (?)", ids).Find(&users)
+	connections.DB.Delete(&users)
+}
+
+func RecentlyDeletedEmployee(c *gin.Context) {
+	var employees []models.Employee
+	connections.DB.Unscoped().Find(&employees)
+
+	c.JSON(http.StatusOK, gin.H{"data": employees})
+}
+
+func RestoreEmployee(c *gin.Context) {
+	id := c.Param("id")
+	connections.DB.Unscoped().Model(&models.Employee{}).Where("id = ?", id).Update("deleted_at", nil)
+}
+
+func PermanaentlyDeleteEmployee(c *gin.Context) {
+	id := c.Param("id")
+	connections.DB.Unscoped().Delete(&models.Employee{}, id)
+}
+
+func UpdateEmployee(c *gin.Context) {
+	id := c.Param("id")
+	var employee models.Employee
+
+	employeeName := c.PostForm("employeeName")
+	employeeSalary, err := strconv.ParseFloat(c.PostForm("employeeSalary"), 64)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Salary"})
+		return
+	}
+
+	employeeShift := c.PostForm("employeeShift")
+	employeeDesgination := c.PostForm("employeeDesgination")
+	employeeGender := c.PostForm("employeeGender")
+
+	connections.DB.First(&employee, id)
+
+	connections.DB.Model(&employee).Updates(models.Employee{Name: employeeName, Salary: employeeSalary,
+		Shift: employeeShift, Desgination: employeeDesgination,
+		Gender: employeeGender})
+}

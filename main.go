@@ -1,9 +1,8 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/Hrishikesh-Panigrahi/Golang-RMS/connections"
+	"github.com/Hrishikesh-Panigrahi/Golang-RMS/routes"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,8 +13,9 @@ func init() {
 }
 func main() {
 	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		fmt.Println("Hello World")
-	})
+
+	router := r.Group("/")
+	routes.AddRoutes(router)
+
 	r.Run()
 }
