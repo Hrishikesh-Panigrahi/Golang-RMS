@@ -6,6 +6,13 @@ import (
 	"gorm.io/gorm"
 )
 
+type User struct{
+	gorm.Model
+	Name string `json:"name"`
+	Email string `json:"email"`
+	Password string `json:"password"`
+}
+
 type Dish struct {
 	ID          uint    `json:"id" gorm:"primaryKey"`
 	Name        string  `json:"name"`

@@ -1,17 +1,12 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Testing from "./assets/Pages/Testing";
+import React from "react";
+// import axios from "axios";
+import EmployeeList from "./AdminPages/EmployeeList";
 
-axios.defaults.baseURL = import.meta.env.VITE_BaseURL;
+// axios.defaults.baseURL = import.meta.env.VITE_BaseURL;
 
 function App() {
-
-    return (
-     
-      <Testing />
-
-    );
-  }
+  return <EmployeeList />;
+}
 
 export default App;
