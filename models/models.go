@@ -12,6 +12,8 @@ type Dish struct {
 	Price       float64 `json:"price"`
 	Description string  `json:"description"`
 	Ingredients string  `json:"ingredients"`
+	Tag         string  `json:"tag"`
+	Available   bool    `json:"available"`
 }
 
 type Employee struct {
@@ -36,7 +38,7 @@ type OrderDetails struct {
 	ID         uint     `json:"id" gorm:"primaryKey"`
 	OrderID    uint     `json:"orderID"`
 	Oder       Order    `json:"order" gorm:"foreignKey:OrderID"`
-	Dish       []Dish   `json:"Dishes"`
+	Dish       []Dish   `json:"Dishes" gorm:"many2many:order_dishes;"`
 	EmployeeID uint     `json:"employeeID"`
 	Employee   Employee `json:"employee" gorm:"foreignKey:EmployeeID"`
 }

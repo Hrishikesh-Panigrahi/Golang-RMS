@@ -22,4 +22,5 @@ func EmployeeRoutes(superRoute *gin.RouterGroup) {
 			Employee.PUT("/:id", backendcontrollers.UpdateEmployee) // Update an employee
 		}
 	}
+	
 }

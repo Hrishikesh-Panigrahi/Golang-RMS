@@ -100,6 +100,14 @@ func PermanaentlyDeleteEmployee(c *gin.Context) {
 	}
 }
 
+func GetEmployee(c *gin.Context) {
+	id := c.Param("id")
+	var employee models.Employee
+	connections.DB.First(&employee, id)
+
+	c.JSON(http.StatusOK, gin.H{"data": employee})
+}
+
 func UpdateEmployee(c *gin.Context) {
 	id := c.Param("id")
 	var employee models.Employee
