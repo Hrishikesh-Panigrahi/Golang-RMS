@@ -16,10 +16,10 @@ func EmployeeRoutes(superRoute *gin.RouterGroup) {
 			Employee.DELETE("/:id", backendcontrollers.DeleteEmployee)                          // Delete an employee
 			Employee.POST("/batchdelete", backendcontrollers.BatchDeleteEmployee)               // Batch delete employees
 			Employee.GET("/recentlydeleted", backendcontrollers.RecentlyDeletedEmployee)        // Update an employee
-			Employee.POST("/restore/:id", backendcontrollers.RestoreEmployee)                       // Restore deleted employee
+			Employee.POST("/restore/:id", backendcontrollers.RestoreEmployee)                   // Restore deleted employee
 			Employee.DELETE("/permanatlydelete", backendcontrollers.PermanaentlyDeleteEmployee) // permanatly an employee
-
-			Employee.PUT("/:id", backendcontrollers.UpdateEmployee) // Update an employee
+			Employee.GET("/:id", backendcontrollers.GetEmployee)                                // Get an employee
+			Employee.PUT("/:id", backendcontrollers.UpdateEmployee)                             // Update an employee
 		}
 	}
 }

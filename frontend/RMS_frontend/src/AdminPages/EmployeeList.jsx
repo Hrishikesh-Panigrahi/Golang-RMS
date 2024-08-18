@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const EmployeeList = () => {
@@ -6,16 +7,15 @@ const EmployeeList = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/employee")
+      .get("/employee")
       .then((response) => {
-        console.log("API Response:", response.data);
         setEmployees(response.data.data);
       })
       .catch((error) => {
         console.error(error);
       });
-    console.log("Testing");
   }, []);
+
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold mb-6 text-gray-800">Employee List</h1>
@@ -40,7 +40,7 @@ const EmployeeList = () => {
                 } hover:bg-gray-200`}
               >
                 <td className="py-3 px-6 border-b border-gray-300">
-                  {employee.id}
+                  <Link to={`/${employee.id}`}>{employee.id}</Link>
                 </td>
                 <td className="py-3 px-6 border-b border-gray-300">
                   {employee.name}
