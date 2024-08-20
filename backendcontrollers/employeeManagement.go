@@ -1,6 +1,7 @@
 package backendcontrollers
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -17,28 +18,35 @@ func GetEmployees(c *gin.Context) {
 }
 
 func CreateEmployee(c *gin.Context) {
-	if c.Request.Method == "POST" {
-		employeeName := c.PostForm("employeeName")
-		employeeSalary, err := strconv.ParseFloat(c.PostForm("employeeSalary"), 64)
+	var EmployeeRegisterInput struct {
+		Name        string  `json:"name"`
+		Salary      float64 `json:"salary"`
+		Designation string  `json:"designation"`
+		Shift       string  `json:"shift"`
+		Gender      string  `json:"gender"`
+	}
 
-		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Salary"})
-			return
-		}
+	if err := c.Bind(&EmployeeRegisterInput); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
-		employeeShift := c.PostForm("employeeShift")
-		employeeDesgination := c.PostForm("employeeDesgination")
-		employeeGender := c.PostForm("employeeGender")
+	fmt.Println(c.Writer, EmployeeRegisterInput)
 
-		employee := models.Employee{Name: employeeName, Salary: employeeSalary, Shift: employeeShift, Desgination: employeeDesgination, Gender: employeeGender}
+	employee := models.Employee{
+		Name:        EmployeeRegisterInput.Name,
+		Salary:      EmployeeRegisterInput.Salary,
+		Designation: EmployeeRegisterInput.Designation,
+		Shift:       EmployeeRegisterInput.Shift,
+		Gender:      EmployeeRegisterInput.Gender,
+	}
 
-		result := connections.DB.Create(&employee)
+	result := connections.DB.Create(&employee)
 
-		if result.Error != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error})
-		} else {
-			c.JSON(http.StatusOK, gin.H{"data": employee})
-		}
+	if result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+	} else {
+		c.JSON(http.StatusOK, gin.H{"data": employee})
 	}
 }
 
@@ -127,7 +135,7 @@ func UpdateEmployee(c *gin.Context) {
 	connections.DB.First(&employee, id)
 
 	result := connections.DB.Model(&employee).Updates(models.Employee{Name: employeeName, Salary: employeeSalary,
-		Shift: employeeShift, Desgination: employeeDesgination,
+		Shift: employeeShift, Designation: employeeDesgination,
 		Gender: employeeGender})
 
 	if result.Error != nil {

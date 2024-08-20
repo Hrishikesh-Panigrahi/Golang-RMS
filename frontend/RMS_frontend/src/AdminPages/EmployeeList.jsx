@@ -55,7 +55,7 @@ const EmployeeList = () => {
                   {employee.salary}
                 </td>
                 <td className="py-3 px-6 border-b border-gray-300">
-                  {employee.Gender}
+                  {employee.gender}
                 </td>
               </tr>
             ))}

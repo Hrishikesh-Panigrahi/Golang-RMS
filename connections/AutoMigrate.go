@@ -12,7 +12,7 @@ func AutoMigrate() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	err = DB.AutoMigrate(&models.Dish{}, &models.Employee{}, &models.Order{}, &models.OrderDetails{})
+	err = DB.AutoMigrate(&models.Dish{}, &models.Employee{}, &models.OrderDetails{})
 	if err != nil {
 		log.Fatal("Error migrating the database")
 	}

@@ -80,3 +80,13 @@ func UpdateDish(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"data": Dish})
 	}
 }
+
+func DeleteDish(c *gin.Context) {
+	id := c.Param("id")
+	result := connections.DB.Delete(&models.Dish{}, id)
+	if result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error})
+	} else {
+		c.JSON(http.StatusOK, gin.H{"data": "Dish Deleted"})
+	}
+}

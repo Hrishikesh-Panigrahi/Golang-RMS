@@ -22,4 +22,24 @@ func EmployeeRoutes(superRoute *gin.RouterGroup) {
 			Employee.PUT("/:id", backendcontrollers.UpdateEmployee)                             // Update an employee
 		}
 	}
+
+	// todo: Employee Search
+	// EmployeeSearch := superRoute.Group("api/employeesearch")
+
+	DishRoutes := superRoute.Group("api/dish")
+	{
+		Dish := DishRoutes.Group("")
+		{
+			Dish.POST("", backendcontrollers.CreateDish)                     // Create a dish
+			Dish.GET("", backendcontrollers.GetDishes)                       // Get all dishes
+			Dish.GET("/recentlyadded", backendcontrollers.RecentlyAddedDish) // Get recently added dish
+			Dish.GET("/:id", backendcontrollers.GetDish)                     // Get a dish
+			Dish.PUT("/:id", backendcontrollers.UpdateDish)                  // Update a dish
+			Dish.DELETE("/:id", backendcontrollers.DeleteDish)               // Delete a dish
+		}
+	}
+
+	// todo: DISH Search
+	// DishSearch := superRoute.Group("api/dishsearch")
+
 }

@@ -6,10 +6,10 @@ import (
 	"gorm.io/gorm"
 )
 
-type User struct{
+type User struct {
 	gorm.Model
-	Name string `json:"name"`
-	Email string `json:"email"`
+	Name     string `json:"name"`
+	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
@@ -27,25 +27,27 @@ type Employee struct {
 	ID          uint           `json:"id" gorm:"primaryKey"`
 	Name        string         `json:"name"`
 	Salary      float64        `json:"salary"`
-	Desgination string         `json:"designation"`
+	Designation string         `json:"designation"`
 	Shift       string         `json:"shift"`
-	Gender      string         `json:"Gender"`
+	Gender      string         `json:"gender"`
 	CreatedAt   time.Time      `json:"createdAt"`
 	UpdatedAt   time.Time      `json:"updatedAt"`
 	DeletedAt   gorm.DeletedAt `json:"deleted_at" gorm:"index"`
 }
 
-type Order struct {
-	ID          uint    `json:"id" gorm:"primaryKey"`
-	Quantity    int     `json:"quantity"`
-	TotalAmount float64 `json:"totalAmount"`
+type OrderDetails struct {
+	ID          uint     `json:"id" gorm:"primaryKey"`
+	Dish        []Dish   `json:"Dishes" gorm:"many2many:order_dishes;"`
+	EmployeeID  uint     `json:"employeeID" null:"true"`
+	Employee    Employee `json:"employee" gorm:"foreignKey:EmployeeID" null:"true"`
+	Quantity    int      `json:"quantity"`
+	TotalAmount float64  `json:"totalAmount"`
 }
 
-type OrderDetails struct {
-	ID         uint     `json:"id" gorm:"primaryKey"`
-	OrderID    uint     `json:"orderID"`
-	Oder       Order    `json:"order" gorm:"foreignKey:OrderID"`
-	Dish       []Dish   `json:"Dishes" gorm:"many2many:order_dishes;"`
-	EmployeeID uint     `json:"employeeID"`
-	Employee   Employee `json:"employee" gorm:"foreignKey:EmployeeID"`
+type OnlineOrder struct {
+	ID           uint           `json:"id" gorm:"primaryKey"`
+	OrderDetails []OrderDetails `json:"orderDetails" gorm:"foreignKey:OnlineOrderID"`
+	TotalAmount  float64        `json:"totalAmount"`
+	CreatedAt    time.Time      `json:"createdAt"`
+	UpdatedAt    time.Time      `json:"updatedAt"`
 }
