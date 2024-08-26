@@ -90,3 +90,11 @@ func DeleteDish(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"data": "Dish Deleted"})
 	}
 }
+
+func DishSearch(c *gin.Context) {
+	var dishes []models.Dish
+	search := c.PostForm("search")
+	connections.DB.Where("name LIKE ?", "%"+search+"%").Find(&dishes)
+
+	c.JSON(http.StatusOK, gin.H{"data": dishes})
+}

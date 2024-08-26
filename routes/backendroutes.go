@@ -5,10 +5,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func EmployeeRoutes(superRoute *gin.RouterGroup) {
-	EmployeeRoutes := superRoute.Group("api/employee")
+// ApiRoutes function to add all the routes for the API
+func ApiRoutes(superRoute *gin.RouterGroup) {
+	ApiRoutes := superRoute.Group("api/")
 	{
-		Employee := EmployeeRoutes.Group("")
+		Employee := ApiRoutes.Group("employee/")
 		{
 			Employee.GET("", backendcontrollers.GetEmployees)                                   // Get all employees
 			Employee.POST("", backendcontrollers.CreateEmployee)                                // Create an employee
@@ -20,15 +21,10 @@ func EmployeeRoutes(superRoute *gin.RouterGroup) {
 			Employee.DELETE("/permanatlydelete", backendcontrollers.PermanaentlyDeleteEmployee) // permanatly an employee
 			Employee.GET("/:id", backendcontrollers.GetEmployee)                                // Get an employee
 			Employee.PUT("/:id", backendcontrollers.UpdateEmployee)                             // Update an employee
+			Employee.POST("/search", backendcontrollers.EmployeeSearch)                         // Search an employee
 		}
-	}
 
-	// todo: Employee Search
-	// EmployeeSearch := superRoute.Group("api/employeesearch")
-
-	DishRoutes := superRoute.Group("api/dish")
-	{
-		Dish := DishRoutes.Group("")
+		Dish := ApiRoutes.Group("dish/")
 		{
 			Dish.POST("", backendcontrollers.CreateDish)                     // Create a dish
 			Dish.GET("", backendcontrollers.GetDishes)                       // Get all dishes
@@ -36,10 +32,17 @@ func EmployeeRoutes(superRoute *gin.RouterGroup) {
 			Dish.GET("/:id", backendcontrollers.GetDish)                     // Get a dish
 			Dish.PUT("/:id", backendcontrollers.UpdateDish)                  // Update a dish
 			Dish.DELETE("/:id", backendcontrollers.DeleteDish)               // Delete a dish
+			Dish.POST("/search", backendcontrollers.DishSearch)              // Search a dish
+		}
+
+		Invoices := ApiRoutes.Group("invoice/")
+		{
+			Invoices.POST("", backendcontrollers.CreateInvoice)       // Create an invoice
+			Invoices.GET("", backendcontrollers.GetInvoices)          // Get all invoices
+			Invoices.GET("/:id", backendcontrollers.GetInvoice)       // Get an invoice
+			Invoices.PUT("/:id", backendcontrollers.UpdateInvoice)    // Update an invoice
+			Invoices.DELETE("/:id", backendcontrollers.DeleteInvoice) // Delete an invoice
 		}
 	}
-
-	// todo: DISH Search
-	// DishSearch := superRoute.Group("api/dishsearch")
 
 }

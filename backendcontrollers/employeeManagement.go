@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
-
+	
 	"github.com/Hrishikesh-Panigrahi/Golang-RMS/connections"
 	"github.com/Hrishikesh-Panigrahi/Golang-RMS/models"
 	"github.com/gin-gonic/gin"
@@ -143,4 +143,12 @@ func UpdateEmployee(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusOK, gin.H{"data": employee})
 	}
+}
+
+func EmployeeSearch(c *gin.Context) {
+	var employee []models.Employee
+	search := c.PostForm("search")
+	connections.DB.Where("name LIKE ?", "%"+search+"%").Find(&employee)
+
+	c.JSON(http.StatusOK, gin.H{"data": employee})
 }
