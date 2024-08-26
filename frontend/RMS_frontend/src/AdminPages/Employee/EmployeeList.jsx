@@ -37,56 +37,56 @@ const EmployeeList = () => {
           </div>
         ) : (
           <>
-          <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
-            <thead className="bg-gray-800 text-white">
-              <tr>
-                <th className="py-3 px-6 text-left">Employee ID</th>
-                <th className="py-3 px-6 text-left">Name</th>
-                <th className="py-3 px-6 text-left">Designation</th>
-                <th className="py-3 px-6 text-left">Shift</th>
-                <th className="py-3 px-6 text-left">Salary</th>
-                <th className="py-3 px-6 text-left">Gender</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Employees.map((employee, index) => (
-                <tr
-                  key={employee.id}
-                  className={`${
-                    index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                  } hover:bg-gray-200`}
-                >
-                  <td className="py-3 px-6 border-b border-gray-300">
-                    <Link to={`${employee.id}`}>{employee.id}</Link>
-                  </td>
-                  <td className="py-3 px-6 border-b border-gray-300">
-                    {employee.name}
-                  </td>
-                  <td className="py-3 px-6 border-b border-gray-300">
-                    {employee.designation}
-                  </td>
-                  <td className="py-3 px-6 border-b border-gray-300">
-                    {employee.shift}
-                  </td>
-                  <td className="py-3 px-6 border-b border-gray-300">
-                    {employee.salary}
-                  </td>
-                  <td className="py-3 px-6 border-b border-gray-300">
-                    {employee.gender}
-                  </td>
+            <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+              <thead className="bg-gray-800 text-white">
+                <tr>
+                  <th className="py-3 px-6 text-left">Employee ID</th>
+                  <th className="py-3 px-6 text-left">Name</th>
+                  <th className="py-3 px-6 text-left">Designation</th>
+                  <th className="py-3 px-6 text-left">Shift</th>
+                  <th className="py-3 px-6 text-left">Salary</th>
+                  <th className="py-3 px-6 text-left">Gender</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          
-          <div className="mt-6">
-            <Link
-              to="/employee/recentlydeleted"
-              className="text-blue-500 hover:underline"
-            >
-              Check recently deleted employees
-            </Link>
-          </div>
+              </thead>
+              <tbody>
+                {Employees.map((employee, index) => (
+                  <tr
+                    key={employee.id}
+                    className={`${
+                      index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                    } hover:bg-gray-200`}
+                  >
+                    <td className="py-3 px-6 border-b border-gray-300">
+                      <Link to={`${employee.id}`}>{employee.id}</Link>
+                    </td>
+                    <td className="py-3 px-6 border-b border-gray-300">
+                      {employee.name}
+                    </td>
+                    <td className="py-3 px-6 border-b border-gray-300">
+                      {employee.designation}
+                    </td>
+                    <td className="py-3 px-6 border-b border-gray-300">
+                      {employee.shift}
+                    </td>
+                    <td className="py-3 px-6 border-b border-gray-300">
+                      {employee.salary}
+                    </td>
+                    <td className="py-3 px-6 border-b border-gray-300">
+                      {employee.gender}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <div className="mt-6">
+              <Link
+                to="/employee/recentlydeleted"
+                className="text-blue-600 hover:text-blue-800 underline transition-colors duration-300"
+              >
+                Check recently deleted employees
+              </Link>
+            </div>
           </>
         )}
       </div>
