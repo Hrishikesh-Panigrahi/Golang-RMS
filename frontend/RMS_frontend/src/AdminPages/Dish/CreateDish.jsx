@@ -1,48 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const CreateEmployee = () => {
+const CreateDish = () => {
   const [name, setName] = useState("");
-  const [salary, setSalary] = useState("");
-  const [designation, setDesignation] = useState("");
-  const [shift, setShift] = useState("");
-  const [gender, setGender] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [ingredients, setIngredients] = useState("");
+  const [tag, setTag] = useState("");
+  const [available, setAvailable] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const submit = async (e) => {
     e.preventDefault();
-    const employee = {
+    const dish = {
       name: name,
-      salary: parseFloat(salary),
-      designation: designation,
-      shift: shift,
-      gender: gender,   
+      price: parseFloat(price),
+      description: description,
+      ingredients: ingredients,
+      tag: tag,
+      available: available,
     };
-
-    console.log("Employee Data:", employee);
-
+    console.log("Dish Data:", dish);
     try {
-      const response = await axios.post("/employee", employee, {
+      const response = await axios.post("/dish/", dish, {
         headers: {
           "Content-Type": "application/json",
         },
       });
       if (response.status === 200) {
-        window.location.href = "/employee";  
+        window.location.href = "/dish";
       } else {
         // TODO: Handle error in error page
-        console.error("Registration failed:", response.statusText);
+        console.error("Dish failed:", response.statusText);
       }
     } catch (error) {
-      console.error("Error during registration:", error);
+      console.error("Error during dish creation:", error);
     }
   };
-
   return (
     <div className="bg-gray-100 flex items-center justify-center min-h-screen">
       <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-2xl font-bold mb-6 text-gray-800">
-          Create Employee
-        </h1>
+        <h1 className="text-2xl font-bold mb-6 text-gray-800">Create Dish</h1>
 
         <form onSubmit={submit}>
           <div className="mb-4">
@@ -66,18 +64,18 @@ const CreateEmployee = () => {
 
           <div className="mb-4">
             <label
-              htmlFor="salary"
+              htmlFor="price"
               className="block text-sm font-medium text-gray-700"
             >
-              Salary
+              Price
             </label>
             <input
               type="number"
-              id="salary"
-              name="salary"
+              id="price"
+              name="price"
               placeholder="10"
-              value={salary}
-              onChange={(e) => setSalary(e.target.value)}
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               required
             />
@@ -85,18 +83,18 @@ const CreateEmployee = () => {
 
           <div className="mb-4">
             <label
-              htmlFor="designation"
+              htmlFor="description"
               className="block text-sm font-medium text-gray-700"
             >
-              Designation
+              Description
             </label>
             <input
               type="text"
-              id="designation"
-              name="designation"
+              id="description"
+              name="description"
               placeholder="Software Engineer"
-              value={designation}
-              onChange={(e) => setDesignation(e.target.value)}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               required
             />
@@ -104,18 +102,18 @@ const CreateEmployee = () => {
 
           <div className="mb-4">
             <label
-              htmlFor="shift"
+              htmlFor="ingredients"
               className="block text-sm font-medium text-gray-700"
             >
-              Shift
+              Ingredients
             </label>
             <input
               type="text"
-              id="shift"
-              name="shift"
+              id="ingredients"
+              name="ingredients"
               placeholder="Morning"
-              value={shift}
-              onChange={(e) => setShift(e.target.value)}
+              value={ingredients}
+              onChange={(e) => setIngredients(e.target.value)}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               required
             />
@@ -123,18 +121,37 @@ const CreateEmployee = () => {
 
           <div className="mb-4">
             <label
-              htmlFor="gender"
+              htmlFor="tag"
               className="block text-sm font-medium text-gray-700"
             >
-              Gender
+              Tag
             </label>
             <input
               type="text"
-              id="gender"
-              name="gender"
+              id="tag"
+              name="tag"
               placeholder="Male"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
+              value={tag}
+              onChange={(e) => setTag(e.target.value)}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="available"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Available
+            </label>
+            <input
+              type="text"
+              id="available"
+              name="available"
+              placeholder="Male"
+              value={available}
+              onChange={(e) => setAvailable(e.target.value)}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               required
             />
@@ -154,4 +171,4 @@ const CreateEmployee = () => {
   );
 };
 
-export default CreateEmployee;
+export default CreateDish;

@@ -10,18 +10,29 @@ import (
 )
 
 func CreateDish(c *gin.Context) {
-	Name := c.PostForm("name")
-	Price, err := strconv.ParseFloat(c.PostForm("price"), 64)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Salary"})
+	var DishInput struct {
+		Name        string  `json:"name"`
+		Price       float64 `json:"price"`
+		Description string  `json:"description"`
+		Ingredients string  `json:"ingredients"`
+		Tag         string  `json:"tag"`
+		Available   bool    `json:"available"`
+	}
+
+	if err := c.Bind(&DishInput); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	Description := c.PostForm("description")
-	Ingredients := c.PostForm("ingredients")
-	Tag := c.PostForm("tag")
-	Available := true
 
-	dish := models.Dish{Name: Name, Price: Price, Description: Description, Ingredients: Ingredients, Tag: Tag, Available: Available}
+	dish := models.Dish{
+		Name:        DishInput.Name,
+		Price:       DishInput.Price,
+		Description: DishInput.Description,
+		Ingredients: DishInput.Ingredients,
+		Tag:         DishInput.Tag,
+		Available:   DishInput.Available,
+	}
+
 	result := connections.DB.Create(&dish)
 
 	if result.Error != nil {

@@ -1,7 +1,6 @@
 import React from "react";
 
 const Navbar = () => {
-
   return (
     <header className="fixed top-0 w-full z-50">
       <div className="container mx-auto flex items-center justify-between py-2 px-4 lg:px-8">
@@ -18,13 +17,13 @@ const Navbar = () => {
             <div class="text-white flex justify-between">
               <div class="flex items-center space-x-1">
                 <a href="" class="py-5 px-3 text-white hover:text-black">
-                  About
+                  Employees
                 </a>
                 <a href="" class="py-5 px-3 text-white hover:text-black">
-                  Menu
+                  Dishes
                 </a>
                 <a href="" class="py-5 px-3 text-white hover:text-black">
-                  Contact
+                  Tables
                 </a>
               </div>
             </div>

@@ -5,6 +5,8 @@ import EmployeeList from "./AdminPages/Employee/EmployeeList";
 import Employee from "./AdminPages/Employee/Employee";
 import CreateEmployee from "./AdminPages/Employee/CreateEmployee";
 import RecentlyDeleted from "./AdminPages/Employee/RecentlyDeleted";
+import CreateDish from "./AdminPages/Dish/CreateDish";
+import Dishes from "./AdminPages/Dish/Dishes";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -19,6 +21,9 @@ function App() {
         <Route path="/employee/:id" element={<Employee />} />
         <Route path="/employee/create" element={<CreateEmployee />} />
         <Route path="/employee/recentlydeleted" element={<RecentlyDeleted />} />
+        <Route path="/dish/create" element={<CreateDish />} />
+        <Route path="/dish" element={<Dishes />} />
+
       </Routes>
     </Router>
   );

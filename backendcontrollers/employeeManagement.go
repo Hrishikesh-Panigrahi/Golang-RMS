@@ -1,10 +1,9 @@
 package backendcontrollers
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
-	
+
 	"github.com/Hrishikesh-Panigrahi/Golang-RMS/connections"
 	"github.com/Hrishikesh-Panigrahi/Golang-RMS/models"
 	"github.com/gin-gonic/gin"
@@ -30,8 +29,6 @@ func CreateEmployee(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
-	fmt.Println(c.Writer, EmployeeRegisterInput)
 
 	employee := models.Employee{
 		Name:        EmployeeRegisterInput.Name,
