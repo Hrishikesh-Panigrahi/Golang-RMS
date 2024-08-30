@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import SearchBar from "../../Components/SearchBar";
 
 const EmployeeList = () => {
   const [Employees, setEmployees] = useState([]);
@@ -18,17 +19,17 @@ const EmployeeList = () => {
     setIsLoading(false);
   }, []);
 
-  // Todo: Add a loading spinner
-
   // todo: Add Delete employee functionality
   // todo: Add Search employee functionality
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold mb-6 text-gray-800">Employee List</h1>
+
+      <SearchBar api="/employee/batchdelete/" placeholder="Search for employees" />
       <div className="overflow-x-auto">
         {isLoading ? (
-          <div className="relative flex justify-center items-center">
+          <div className="mt-4 relative flex justify-center items-center">
             <div className="absolute animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-purple-500"></div>
             <img
               src="https://www.svgrepo.com/show/509001/avatar-thinking-9.svg"
