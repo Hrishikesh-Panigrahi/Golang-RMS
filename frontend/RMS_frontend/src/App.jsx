@@ -9,6 +9,7 @@ import CreateDish from "./AdminPages/Dish/CreateDish";
 import Dishes from "./AdminPages/Dish/Dishes";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import ShowTables from "./ClientPages/ShowTables";
 
 axios.defaults.baseURL = import.meta.env.VITE_BaseURL;
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/employee/recentlydeleted" element={<RecentlyDeleted />} />
         <Route path="/dish/create" element={<CreateDish />} />
         <Route path="/dish" element={<Dishes />} />
+        <Route path="/show-tables" element={<ShowTables />} />
 
       </Routes>
     </Router>
