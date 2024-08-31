@@ -51,3 +51,19 @@ type OnlineOrder struct {
 	CreatedAt    time.Time      `json:"createdAt"`
 	UpdatedAt    time.Time      `json:"updatedAt"`
 }
+
+type Tables struct {
+	ID          uint `json:"id" gorm:"primaryKey"`
+	TableNumber int  `json:"tableNumber"`
+	Capacity    int  `json:"capacity"`
+}
+
+type Reservations struct {
+	ID              uint      `json:"id" gorm:"primaryKey"`
+	TableID         uint      `json:"tableId"`
+	Table           Tables    `json:"table" gorm:"foreignKey:TableID"`
+	Guests          int       `json:"guests"`
+	ReservationDate time.Time `json:"date"`
+	ReservationTime time.Time `json:"time"`
+	EndTime         time.Time `json:"endTime"`
+}
