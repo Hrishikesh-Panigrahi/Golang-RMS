@@ -7,9 +7,11 @@ import CreateEmployee from "./AdminPages/Employee/CreateEmployee";
 import RecentlyDeleted from "./AdminPages/Employee/RecentlyDeleted";
 import CreateDish from "./AdminPages/Dish/CreateDish";
 import Dishes from "./AdminPages/Dish/Dishes";
+import ShowTables from "./ClientPages/ShowTables";
+import CheckTable from "./ClientPages/CheckTable";
+import BookTable from "./ClientPages/BookTable";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import ShowTables from "./ClientPages/ShowTables";
 
 axios.defaults.baseURL = import.meta.env.VITE_BaseURL;
 
@@ -24,8 +26,9 @@ function App() {
         <Route path="/employee/recentlydeleted" element={<RecentlyDeleted />} />
         <Route path="/dish/create" element={<CreateDish />} />
         <Route path="/dish" element={<Dishes />} />
-        <Route path="/show-tables" element={<ShowTables />} />
-
+        <Route path="/show" element={<ShowTables />} />
+        <Route path="/check-table" element={<CheckTable />} />
+        <Route path="/book-table" element={<BookTable />} />
       </Routes>
     </Router>
   );

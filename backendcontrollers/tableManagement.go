@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func ShowAvailableTables(c *gin.Context) {
+func CheckAvailableTables(c *gin.Context) {
 	var QueryTable struct {
 		Date      time.Time `json:"date"`
 		StartTime time.Time `json:"startTime"`

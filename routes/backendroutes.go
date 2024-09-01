@@ -43,6 +43,11 @@ func ApiRoutes(superRoute *gin.RouterGroup) {
 			Invoices.PUT("/:id", backendcontrollers.UpdateInvoice)    // Update an invoice
 			Invoices.DELETE("/:id", backendcontrollers.DeleteInvoice) // Delete an invoice
 		}
+
+		Tables := ApiRoutes.Group("table/")
+		{
+			Tables.POST("", backendcontrollers.CheckAvailableTables) // Create a table
+		}
 	}
 
 }
